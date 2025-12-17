@@ -2,6 +2,10 @@
   "name": "bun-addon-zig",
   "type": "module",
   "private": true,
+  "scripts": {
+    "deps:node": "bun run scripts/deps_node.ts",
+    "bun:run": "bun run index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   }
