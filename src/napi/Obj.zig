@@ -15,7 +15,7 @@ pub fn new(ctx: Ctx) !Obj {
     c.napi_create_object,
     .{&res},
   );
-  return Obj{ .c_val = res, .ctx = ctx };
+  return .{ .c_val = res, .ctx = ctx };
 }
 
 pub fn set(self: Obj, name: [:0]const u8, val: anytype) !void {

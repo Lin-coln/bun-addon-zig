@@ -2,9 +2,14 @@ const c = @import("c.zig").c;
 const call_node_api = @import("c.zig").call_node_api;
 const utils = @import("utils.zig");
 const Val = @import("utils.zig").Val;
+const Obj = @import("Obj.zig");
 
 c_env: c.napi_env,
 const Ctx = @This();
+
+pub fn object(self:Ctx) !Obj {
+    return try Obj.new(self);
+}
 
 pub fn boolean(
     self: Ctx,
@@ -16,7 +21,7 @@ pub fn boolean(
         c.napi_get_boolean,
         .{ val, &res },
     );
-    return Val{ .c_val = res, .ctx = self };
+    return .{ .c_val = res, .ctx = self };
 }
 
 pub fn global(self: Ctx) !Val {
@@ -26,5 +31,5 @@ pub fn global(self: Ctx) !Val {
         c.napi_get_global,
         .{&res},
     );
-    return Val{ .c_val = res, .ctx = self };
+    return .{ .c_val = res, .ctx = self };
 }

@@ -4,7 +4,7 @@ comptime {
     napi.registerModule(init);
 }
 
-fn init(ctx: napi.Ctx, exports: napi.Obj) !napi.Obj {
+fn init(ctx: napi.Ctx, exports: napi.Obj) !void {
     try exports.set("foo", try ctx.boolean(true));
-    return exports;
+    try exports.set("bar", try ctx.object());
 }

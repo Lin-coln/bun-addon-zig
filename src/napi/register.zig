@@ -27,6 +27,13 @@ pub fn registerModule(init_fn: anytype) void {
                     return null;
                 };
                 return ret.c_val;
+            } else if (comptime utils.isReturnErrVoid(fn_info)) {
+                init_fn(ctx, exports) catch |e| {
+                    std.log.err("Init napi failed, err: {any}", .{e});
+                    _ = c.napi_throw_error(c_env, null, @errorName(e));
+                    return null;
+                };
+                return exports.c_val;
             } else {
                 @compileError("`init_fn` function must return struct has field `c_val`");
             }
