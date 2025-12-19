@@ -2,7 +2,7 @@ const std = @import("std");
 const c = @import("c.zig").c;
 const Ctx = @import("Ctx.zig");
 
-pub const Val = struct { c_val: c.napi_value, ctx: Ctx };
+pub const Val = struct { c_val: c.napi_value, ctx: *const Ctx };
 
 pub fn isReturnValue(fn_info: std.builtin.Type.Fn) bool {
     if (fn_info.return_type) |ret_type| {

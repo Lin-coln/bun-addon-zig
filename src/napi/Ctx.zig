@@ -7,12 +7,12 @@ const Obj = @import("Obj.zig");
 c_env: c.napi_env,
 const Ctx = @This();
 
-pub fn object(self:Ctx) !Obj {
+pub fn object(self: *const Ctx) !Obj {
     return try Obj.new(self);
 }
 
 pub fn boolean(
-    self: Ctx,
+    self: *const Ctx,
     val: bool,
 ) !Val {
     var res: c.napi_value = undefined;
@@ -24,7 +24,7 @@ pub fn boolean(
     return .{ .c_val = res, .ctx = self };
 }
 
-pub fn global(self: Ctx) !Val {
+pub fn global(self: *const Ctx) !Val {
     var res: c.napi_value = undefined;
     try call_node_api(
         self.c_env,

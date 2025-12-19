@@ -16,7 +16,7 @@ pub fn registerModule(init_fn: anytype) void {
             }
 
             const ctx = Ctx{ .c_env = c_env };
-            const exports = Obj{ .ctx = ctx, .c_val = c_exports };
+            const exports = Obj{ .ctx = &ctx, .c_val = c_exports };
 
             if (comptime utils.isReturnValue(fn_info)) {
                 return init_fn(ctx, exports).c_val;
